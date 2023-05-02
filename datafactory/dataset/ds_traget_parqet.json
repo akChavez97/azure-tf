@@ -1,0 +1,20 @@
+{
+	"name": "ds_traget_parqet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ADLSlinkedservice",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "data",
+				"fileSystem": "raw"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}

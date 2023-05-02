@@ -1,0 +1,27 @@
+{
+	"name": "ds_source_csv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ADLSlinkedservice",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Geologia.csv",
+				"fileSystem": "raw"
+			},
+			"columnDelimiter": ";",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"type": "String"
+			}
+		]
+	}
+}
