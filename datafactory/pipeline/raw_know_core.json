@@ -48,7 +48,10 @@
 				"inputs": [
 					{
 						"referenceName": "ds_source_csv",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": "Geologia.csv"
+						}
 					}
 				],
 				"outputs": [
