@@ -56,7 +56,7 @@
 				"derivedColumn1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'parquet',",
-				"     filePattern:'m_geo[n].parquet',",
+				"     filePattern:'m_geomeca[n].parquet',",
 				"     truncate: true,",
 				"     umask: 0022,",
 				"     preCommands: [],",
