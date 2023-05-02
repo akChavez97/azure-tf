@@ -21,13 +21,39 @@
 					"name": "sink1"
 				}
 			],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				}
+			],
 			"scriptLines": [
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          Estimacion as string,",
+				"          Estatus as string,",
+				"          NombredeEstructura as string,",
+				"          FullYearBudget as string,",
+				"          BudgetYTDApril as string,",
+				"          ActualYTDApril as string,",
+				"          Variacion1 as string,",
+				"          Variacion2 as string,",
+				"          Detalle as string,",
+				"          Observacion as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
 				"     format: 'parquet') ~> rawgeo",
-				"rawgeo sink(allowSchemaDrift: true,",
+				"rawgeo derive(Estimacion = toString(Estimacion),",
+				"          Estatus = toString(Estatus),",
+				"          NombredeEstructura = toString(NombredeEstructura),",
+				"          FullYearBudget = toDouble(FullYearBudget),",
+				"          BudgetYTDApril = toDouble(BudgetYTDApril),",
+				"          ActualYTDApril = toDouble(ActualYTDApril),",
+				"          Detalle = toString(Detalle),",
+				"          Observacion = toString(Observacion),",
+				"          actualvsfullyear = toDouble(ActualYTDApril)-toDouble(FullYearBudget),",
+				"          actualvsbudget = toDouble(ActualYTDApril)-toDouble(BudgetYTDApril)) ~> derivedColumn1",
+				"derivedColumn1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'parquet',",
 				"     filePattern:'m_geo[n].parquet',",
