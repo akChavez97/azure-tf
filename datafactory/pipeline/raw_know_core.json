@@ -50,7 +50,7 @@
 						"referenceName": "ds_source_csv",
 						"type": "DatasetReference",
 						"parameters": {
-							"appname": "Geomecanica.csv"
+							"appname": "Geologia.csv"
 						}
 					}
 				],
@@ -59,7 +59,7 @@
 						"referenceName": "ds_traget_parqet",
 						"type": "DatasetReference",
 						"parameters": {
-							"filename": "Geomecanica.parquet"
+							"filename": "Geologia.parquet"
 						}
 					}
 				]
@@ -110,13 +110,19 @@
 				"inputs": [
 					{
 						"referenceName": "ds_source_csv",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"appname": "Oportunidades.csv"
+						}
 					}
 				],
 				"outputs": [
 					{
 						"referenceName": "ds_traget_parqet",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": "Oportunidades.parquet"
+						}
 					}
 				]
 			},
@@ -166,13 +172,19 @@
 				"inputs": [
 					{
 						"referenceName": "ds_source_csv",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"appname": "Retrasos_Operativos.csv"
+						}
 					}
 				],
 				"outputs": [
 					{
 						"referenceName": "ds_traget_parqet",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": "Retrasos_Operativos.parquet"
+						}
 					}
 				]
 			},
@@ -222,13 +234,19 @@
 				"inputs": [
 					{
 						"referenceName": "ds_source_csv",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"appname": "Planeamiento.csv"
+						}
 					}
 				],
 				"outputs": [
 					{
 						"referenceName": "ds_traget_parqet",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": "Planeamiento.parquet"
+						}
 					}
 				]
 			},
@@ -278,13 +296,19 @@
 				"inputs": [
 					{
 						"referenceName": "ds_source_csv",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"appname": "Geomecanica.csv"
+						}
 					}
 				],
 				"outputs": [
 					{
 						"referenceName": "ds_traget_parqet",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": "Geomecanica.parquet"
+						}
 					}
 				]
 			}
