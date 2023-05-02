@@ -580,7 +580,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/dataflow2')]",
+			"name": "[concat(parameters('factoryName'), '/dataflowgeo')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -655,13 +655,309 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/dataflowgeomeca')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "ds_traget_parqet",
+								"type": "DatasetReference"
+							},
+							"name": "rawgeomeca"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "ds_master_source_parquet",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "derivedColumn1"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          Estimacion as string,",
+						"          Estatus as string,",
+						"          NombredeEstructura as string,",
+						"          FullYearBudget as string,",
+						"          BudgetYTDApril as string,",
+						"          ActualYTDApril as string,",
+						"          Variacion1 as string,",
+						"          Variacion2 as string,",
+						"          Detalle as string,",
+						"          Observacion as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     format: 'parquet') ~> rawgeomeca",
+						"rawgeomeca derive(Estimacion = toString(Estimacion),",
+						"          Estatus = toString(Estatus),",
+						"          NombredeEstructura = toString(NombredeEstructura),",
+						"          FullYearBudget = toDouble(FullYearBudget),",
+						"          BudgetYTDApril = toDouble(BudgetYTDApril),",
+						"          ActualYTDApril = toDouble(ActualYTDApril),",
+						"          Detalle = toString(Detalle),",
+						"          Observacion = toString(Observacion),",
+						"          actualvsfullyear = toDouble(ActualYTDApril)-toDouble(FullYearBudget),",
+						"          actualvsbudget = toDouble(ActualYTDApril)-toDouble(BudgetYTDApril)) ~> derivedColumn1",
+						"derivedColumn1 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'parquet',",
+						"     filePattern:'m_geomeca[n].parquet',",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> sink1"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_traget_parqet')]",
+				"[concat(variables('factoryId'), '/datasets/ds_master_source_parquet')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflowopor')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "ds_traget_parqet",
+								"type": "DatasetReference"
+							},
+							"name": "rawropo"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "ds_master_source_parquet",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "derivedColumn1"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          Estimacion as string,",
+						"          Estatus as string,",
+						"          NombredeEstructura as string,",
+						"          FullYearBudget as string,",
+						"          BudgetYTDApril as string,",
+						"          ActualYTDApril as string,",
+						"          Variacion1 as string,",
+						"          Variacion2 as string,",
+						"          Detalle as string,",
+						"          Observacion as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     format: 'parquet') ~> rawropo",
+						"rawropo derive(Estimacion = toString(Estimacion),",
+						"          Estatus = toString(Estatus),",
+						"          NombredeEstructura = toString(NombredeEstructura),",
+						"          FullYearBudget = toDouble(FullYearBudget),",
+						"          BudgetYTDApril = toDouble(BudgetYTDApril),",
+						"          ActualYTDApril = toDouble(ActualYTDApril),",
+						"          Detalle = toString(Detalle),",
+						"          Observacion = toString(Observacion),",
+						"          actualvsfullyear = toDouble(ActualYTDApril)-toDouble(FullYearBudget),",
+						"          actualvsbudget = toDouble(ActualYTDApril)-toDouble(BudgetYTDApril)) ~> derivedColumn1",
+						"derivedColumn1 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'parquet',",
+						"     filePattern:'m_opor[n].parquet',",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> sink1"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_traget_parqet')]",
+				"[concat(variables('factoryId'), '/datasets/ds_master_source_parquet')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflowplan')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "ds_traget_parqet",
+								"type": "DatasetReference"
+							},
+							"name": "rawplan"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "ds_master_source_parquet",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "derivedColumn1"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          Estimacion as string,",
+						"          Estatus as string,",
+						"          NombredeEstructura as string,",
+						"          FullYearBudget as string,",
+						"          BudgetYTDApril as string,",
+						"          ActualYTDApril as string,",
+						"          Variacion1 as string,",
+						"          Variacion2 as string,",
+						"          Detalle as string,",
+						"          Observacion as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     format: 'parquet') ~> rawplan",
+						"rawplan derive(Estimacion = toString(Estimacion),",
+						"          Estatus = toString(Estatus),",
+						"          NombredeEstructura = toString(NombredeEstructura),",
+						"          FullYearBudget = toDouble(FullYearBudget),",
+						"          BudgetYTDApril = toDouble(BudgetYTDApril),",
+						"          ActualYTDApril = toDouble(ActualYTDApril),",
+						"          Detalle = toString(Detalle),",
+						"          Observacion = toString(Observacion),",
+						"          actualvsfullyear = toDouble(ActualYTDApril)-toDouble(FullYearBudget),",
+						"          actualvsbudget = toDouble(ActualYTDApril)-toDouble(BudgetYTDApril)) ~> derivedColumn1",
+						"derivedColumn1 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'parquet',",
+						"     filePattern:'m_plan[n].parquet',",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> sink1"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_traget_parqet')]",
+				"[concat(variables('factoryId'), '/datasets/ds_master_source_parquet')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflowretrasos')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "ds_traget_parqet",
+								"type": "DatasetReference"
+							},
+							"name": "rawretrasos"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "ds_master_source_parquet",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "derivedColumn1"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          Estimacion as string,",
+						"          Estatus as string,",
+						"          NombredeEstructura as string,",
+						"          FullYearBudget as string,",
+						"          BudgetYTDApril as string,",
+						"          ActualYTDApril as string,",
+						"          Variacion1 as string,",
+						"          Variacion2 as string,",
+						"          Detalle as string,",
+						"          Observacion as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     format: 'parquet') ~> rawretrasos",
+						"rawretrasos derive(Estimacion = toString(Estimacion),",
+						"          Estatus = toString(Estatus),",
+						"          NombredeEstructura = toString(NombredeEstructura),",
+						"          FullYearBudget = toDouble(FullYearBudget),",
+						"          BudgetYTDApril = toDouble(BudgetYTDApril),",
+						"          ActualYTDApril = toDouble(ActualYTDApril),",
+						"          Detalle = toString(Detalle),",
+						"          Observacion = toString(Observacion),",
+						"          actualvsfullyear = toDouble(ActualYTDApril)-toDouble(FullYearBudget),",
+						"          actualvsbudget = toDouble(ActualYTDApril)-toDouble(BudgetYTDApril)) ~> derivedColumn1",
+						"derivedColumn1 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'parquet',",
+						"     filePattern:'m_retrasos[n].parquet',",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> sink1"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_traget_parqet')]",
+				"[concat(variables('factoryId'), '/datasets/ds_master_source_parquet')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/master_party_core')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Data flow1",
+						"name": "Data flowgeo",
 						"type": "ExecuteDataFlow",
 						"dependsOn": [],
 						"policy": {
@@ -674,12 +970,168 @@
 						"userProperties": [],
 						"typeProperties": {
 							"dataflow": {
-								"referenceName": "dataflow2",
+								"referenceName": "dataflowgeo",
 								"type": "DataFlowReference",
 								"parameters": {},
 								"datasetParameters": {
 									"rawgeo": {
 										"filename": "Geologia.parquet"
+									},
+									"sink1": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					},
+					{
+						"name": "Data flowgeomeca",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [
+							{
+								"activity": "Data flowgeo",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "dataflowgeomeca",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"rawgeomeca": {
+										"filename": "Geomecanica.parquet"
+									},
+									"sink1": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					},
+					{
+						"name": "Data flowplan",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [
+							{
+								"activity": "Data flowgeomeca",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "dataflowplan",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"rawplan": {
+										"filename": "Planeamiento.parquet"
+									},
+									"sink1": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					},
+					{
+						"name": "Data flowretra",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [
+							{
+								"activity": "Data flowplan",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "dataflowretrasos",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"rawretrasos": {
+										"filename": "Retrasos_Operativos.parquet"
+									},
+									"sink1": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					},
+					{
+						"name": "Data flowoport",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [
+							{
+								"activity": "Data flowretra",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "dataflowopor",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"rawropo": {
+										"filename": "Oportunidades.parquet"
 									},
 									"sink1": {}
 								}
@@ -709,7 +1161,11 @@
 				"lastPublishTime": "2023-05-02T05:08:49Z"
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/dataflow2')]"
+				"[concat(variables('factoryId'), '/dataflows/dataflowgeo')]",
+				"[concat(variables('factoryId'), '/dataflows/dataflowgeomeca')]",
+				"[concat(variables('factoryId'), '/dataflows/dataflowplan')]",
+				"[concat(variables('factoryId'), '/dataflows/dataflowretrasos')]",
+				"[concat(variables('factoryId'), '/dataflows/dataflowopor')]"
 			]
 		},
 		{
