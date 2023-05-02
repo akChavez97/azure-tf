@@ -48,27 +48,26 @@
 				"inputs": [
 					{
 						"referenceName": "ds_source_csv",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"appname": "Geomecanica.csv"
+						}
 					}
 				],
 				"outputs": [
 					{
 						"referenceName": "ds_traget_parqet",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": "Geomecanica.parquet"
+						}
 					}
 				]
 			},
 			{
 				"name": "Copyop",
 				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "Copygeo",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -124,14 +123,7 @@
 			{
 				"name": "Copyretraso",
 				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "Copyop",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -187,14 +179,7 @@
 			{
 				"name": "Copyplan",
 				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "Copyretraso",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -250,14 +235,7 @@
 			{
 				"name": "Copygeemeca",
 				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "Copyplan",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
