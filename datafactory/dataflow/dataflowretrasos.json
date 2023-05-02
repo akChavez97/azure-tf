@@ -1,5 +1,5 @@
 {
-	"name": "dataflowgeo",
+	"name": "dataflowretrasos",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
@@ -9,7 +9,7 @@
 						"referenceName": "ds_traget_parqet",
 						"type": "DatasetReference"
 					},
-					"name": "rawgeo"
+					"name": "rawretrasos"
 				}
 			],
 			"sinks": [
@@ -42,8 +42,8 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
-				"     format: 'parquet') ~> rawgeo",
-				"rawgeo derive(Estimacion = toString(Estimacion),",
+				"     format: 'parquet') ~> rawretrasos",
+				"rawretrasos derive(Estimacion = toString(Estimacion),",
 				"          Estatus = toString(Estatus),",
 				"          NombredeEstructura = toString(NombredeEstructura),",
 				"          FullYearBudget = toDouble(FullYearBudget),",
