@@ -1,15 +1,58 @@
 {
-	"name": "raw_ga4_core",
+	"name": "raw_core",
 	"properties": {
 		"activities": [
 			{
-				"name": "Set variable1",
-				"type": "SetVariable",
+				"name": "Execute raw GA4",
+				"type": "ExecutePipeline",
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "demo",
-					"value": "demo"
+					"pipeline": {
+						"referenceName": "raw_know_core",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Execute_master_party_core",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Execute raw GA4",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "master_party_core",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Execute_business_tf_overview",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Execute_master_party_core",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "business_tf_overview",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
 				}
 			}
 		],
