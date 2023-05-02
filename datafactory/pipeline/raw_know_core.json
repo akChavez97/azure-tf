@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copygeo",
+				"name": "Copygeo1",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -65,9 +65,16 @@
 				]
 			},
 			{
-				"name": "Copyop",
+				"name": "Copyop1",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Copygeo1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -110,7 +117,10 @@
 				"inputs": [
 					{
 						"referenceName": "ds_source_csv",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": "Oportunidades.csv"
+						}
 					}
 				],
 				"outputs": [
@@ -124,9 +134,16 @@
 				]
 			},
 			{
-				"name": "Copyretraso",
+				"name": "Copyretraso1",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Copyop1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -169,7 +186,10 @@
 				"inputs": [
 					{
 						"referenceName": "ds_source_csv",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": "Retrasos_Operativos.csv"
+						}
 					}
 				],
 				"outputs": [
@@ -183,9 +203,16 @@
 				]
 			},
 			{
-				"name": "Copyplan",
+				"name": "Copyplan1",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Copyretraso1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -228,7 +255,10 @@
 				"inputs": [
 					{
 						"referenceName": "ds_source_csv",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": "Planeamiento.csv"
+						}
 					}
 				],
 				"outputs": [
@@ -242,9 +272,16 @@
 				]
 			},
 			{
-				"name": "Copygeemeca",
+				"name": "Copygeemeca1",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Copyplan1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -287,7 +324,10 @@
 				"inputs": [
 					{
 						"referenceName": "ds_source_csv",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": "Geomecanica.csv"
+						}
 					}
 				],
 				"outputs": [
