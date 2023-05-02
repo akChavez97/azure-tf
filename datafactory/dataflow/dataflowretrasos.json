@@ -57,7 +57,6 @@
 				"     validateSchema: false,",
 				"     format: 'parquet',",
 				"     filePattern:'m_retrasos[n].parquet',",
-				"     truncate: true,",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
