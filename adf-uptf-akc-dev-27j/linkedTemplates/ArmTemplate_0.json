@@ -127,18 +127,6 @@
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"activities": [
-					{
-						"name": "Set variable1",
-						"type": "SetVariable",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "demo",
-							"value": "demo"
-						}
-					}
-				],
 				"policy": {
 					"elapsedTimeMetric": {},
 					"cancelAfter": {}
@@ -192,12 +180,20 @@
 					"referenceName": "ADLSlinkedservice",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"filename": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "Geomecanica.csv",
+						"fileName": {
+							"value": "@dataset().filename",
+							"type": "Expression"
+						},
 						"fileSystem": "raw"
 					},
 					"columnDelimiter": ";",
@@ -224,11 +220,20 @@
 					"referenceName": "ADLSlinkedservice",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"filename": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "Parquet",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().filename",
+							"type": "Expression"
+						},
 						"folderPath": "data",
 						"fileSystem": "raw"
 					},
@@ -247,17 +252,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Set variable1",
-						"type": "SetVariable",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "demo",
-							"value": "demo"
-						}
-					},
-					{
-						"name": "Copy data1",
+						"name": "Copygeo1",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -303,14 +298,294 @@
 							{
 								"referenceName": "ds_source_csv",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"filename": "Geologia.csv"
+								}
 							}
 						],
 						"outputs": [
 							{
 								"referenceName": "ds_traget_parqet",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"filename": "Geologia.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "Copyop1",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Copygeo1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_source_csv",
+								"type": "DatasetReference",
+								"parameters": {
+									"filename": "Oportunidades.csv"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ds_traget_parqet",
+								"type": "DatasetReference",
+								"parameters": {
+									"filename": "Oportunidades.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "Copyretraso1",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Copyop1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_source_csv",
+								"type": "DatasetReference",
+								"parameters": {
+									"filename": "Retrasos_Operativos.csv"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ds_traget_parqet",
+								"type": "DatasetReference",
+								"parameters": {
+									"filename": "Retrasos_Operativos.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "Copyplan1",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Copyretraso1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_source_csv",
+								"type": "DatasetReference",
+								"parameters": {
+									"filename": "Planeamiento.csv"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ds_traget_parqet",
+								"type": "DatasetReference",
+								"parameters": {
+									"filename": "Planeamiento.parquet"
+								}
+							}
+						]
+					},
+					{
+						"name": "Copygeemeca1",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Copyplan1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_source_csv",
+								"type": "DatasetReference",
+								"parameters": {
+									"filename": "Geomecanica.csv"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ds_traget_parqet",
+								"type": "DatasetReference",
+								"parameters": {
+									"filename": "Geomecanica.parquet"
+								}
 							}
 						]
 					}
