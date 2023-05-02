@@ -197,7 +197,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "Geologia.csv",
+						"fileName": "Geomecanica.csv",
 						"fileSystem": "raw"
 					},
 					"columnDelimiter": ";",
