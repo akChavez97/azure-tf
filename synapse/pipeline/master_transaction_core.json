@@ -1,0 +1,28 @@
+{
+	"name": "master_transaction_core",
+	"properties": {
+		"activities": [
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "demo",
+					"value": "demo"
+				}
+			}
+		],
+		"variables": {
+			"demo": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "02_master_models"
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-05-02T06:57:01Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

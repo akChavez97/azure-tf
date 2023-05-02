@@ -1,0 +1,28 @@
+{
+	"name": "business_tf_overview",
+	"properties": {
+		"activities": [
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "demo",
+					"value": "demo"
+				}
+			}
+		],
+		"variables": {
+			"demo": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "03_business_reports"
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-05-02T14:40:00Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
