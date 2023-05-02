@@ -6,13 +6,7 @@
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"appname": {
-				"type": "string"
-			},
 			"filename": {
-				"type": "string"
-			},
-			"objname": {
 				"type": "string"
 			}
 		},

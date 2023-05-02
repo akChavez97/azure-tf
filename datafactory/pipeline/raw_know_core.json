@@ -48,10 +48,7 @@
 				"inputs": [
 					{
 						"referenceName": "ds_source_csv",
-						"type": "DatasetReference",
-						"parameters": {
-							"appname": "Geologia.csv"
-						}
+						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
@@ -110,10 +107,7 @@
 				"inputs": [
 					{
 						"referenceName": "ds_source_csv",
-						"type": "DatasetReference",
-						"parameters": {
-							"appname": "Oportunidades.csv"
-						}
+						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
@@ -172,10 +166,7 @@
 				"inputs": [
 					{
 						"referenceName": "ds_source_csv",
-						"type": "DatasetReference",
-						"parameters": {
-							"appname": "Retrasos_Operativos.csv"
-						}
+						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
@@ -234,10 +225,7 @@
 				"inputs": [
 					{
 						"referenceName": "ds_source_csv",
-						"type": "DatasetReference",
-						"parameters": {
-							"appname": "Planeamiento.csv"
-						}
+						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
@@ -296,10 +284,7 @@
 				"inputs": [
 					{
 						"referenceName": "ds_source_csv",
-						"type": "DatasetReference",
-						"parameters": {
-							"appname": "Geomecanica.csv"
-						}
+						"type": "DatasetReference"
 					}
 				],
 				"outputs": [

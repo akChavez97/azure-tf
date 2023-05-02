@@ -8,12 +8,6 @@
 		"parameters": {
 			"filename": {
 				"type": "string"
-			},
-			"appname": {
-				"type": "string"
-			},
-			"objname": {
-				"type": "string"
 			}
 		},
 		"annotations": [],
