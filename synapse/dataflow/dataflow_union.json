@@ -1,0 +1,88 @@
+{
+	"name": "dataflow_union",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_traget_parqet",
+						"type": "DatasetReference"
+					},
+					"name": "rawgeo"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_traget_parqet",
+						"type": "DatasetReference"
+					},
+					"name": "rawgeomeca"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_master_source_parquet",
+						"type": "DatasetReference"
+					},
+					"name": "rawopor"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_master_source_parquet",
+						"type": "DatasetReference"
+					},
+					"name": "rawplan"
+				},
+				{
+					"name": "rawretrasos"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "derivedColumn2"
+				},
+				{
+					"name": "uniontablas"
+				},
+				{
+					"name": "derivedColumn3"
+				},
+				{
+					"name": "derivedColumn4"
+				},
+				{
+					"name": "derivedColumn5"
+				}
+			],
+			"scriptLines": [
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> rawgeo",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> rawgeomeca",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> rawopor",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> rawplan",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false) ~> rawretrasos",
+				"rawgeo derive(area = 'geologia') ~> derivedColumn1",
+				"rawgeomeca derive(area = 'geomecanica') ~> derivedColumn2",
+				"derivedColumn1, derivedColumn2, derivedColumn3, derivedColumn4, derivedColumn5 union(byName: true)~> uniontablas",
+				"rawopor derive(area = 'oportunidad') ~> derivedColumn3",
+				"rawplan derive(area = 'planeamiento') ~> derivedColumn4",
+				"rawretrasos derive(area = 'retrasos_operativos') ~> derivedColumn5"
+			]
+		}
+	}
+}
