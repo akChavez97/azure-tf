@@ -50,7 +50,7 @@
 					"name": "03_business_reports"
 				},
 				"annotations": [],
-				"lastPublishTime": "2023-05-02T05:08:49Z"
+				"lastPublishTime": "2023-05-02T14:40:00Z"
 			},
 			"dependsOn": []
 		},
@@ -262,7 +262,7 @@
 					"name": "02_master_models"
 				},
 				"annotations": [],
-				"lastPublishTime": "2023-05-02T05:08:49Z"
+				"lastPublishTime": "2023-05-02T17:04:26Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/dataflowgeo')]",
@@ -302,7 +302,7 @@
 					"name": "02_master_models"
 				},
 				"annotations": [],
-				"lastPublishTime": "2023-05-02T05:08:49Z"
+				"lastPublishTime": "2023-05-02T06:57:01Z"
 			},
 			"dependsOn": []
 		},
@@ -382,7 +382,7 @@
 					"name": "01_raw_source"
 				},
 				"annotations": [],
-				"lastPublishTime": "2023-05-02T05:08:49Z"
+				"lastPublishTime": "2023-05-02T14:40:01Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/raw_know_core')]",
@@ -748,7 +748,7 @@
 					"name": "01_raw_source"
 				},
 				"annotations": [],
-				"lastPublishTime": "2023-05-02T05:08:49Z"
+				"lastPublishTime": "2023-05-02T13:19:19Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ds_source_csv')]",
@@ -937,7 +937,8 @@
 						"          Detalle = toString(Detalle),",
 						"          Observacion = toString(Observacion),",
 						"          actualvsfullyear = toDouble(ActualYTDApril)-toDouble(FullYearBudget),",
-						"          actualvsbudget = toDouble(ActualYTDApril)-toDouble(BudgetYTDApril)) ~> derivedColumn1",
+						"          actualvsbudget = toDouble(ActualYTDApril)-toDouble(BudgetYTDApril),",
+						"          area = 'geologia') ~> derivedColumn1",
 						"derivedColumn1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     format: 'parquet',",
@@ -1012,7 +1013,8 @@
 						"          Detalle = toString(Detalle),",
 						"          Observacion = toString(Observacion),",
 						"          actualvsfullyear = toDouble(ActualYTDApril)-toDouble(FullYearBudget),",
-						"          actualvsbudget = toDouble(ActualYTDApril)-toDouble(BudgetYTDApril)) ~> derivedColumn1",
+						"          actualvsbudget = toDouble(ActualYTDApril)-toDouble(BudgetYTDApril),",
+						"          area = 'geomecanica') ~> derivedColumn1",
 						"derivedColumn1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     format: 'parquet',",
@@ -1086,7 +1088,8 @@
 						"          Detalle = toString(Detalle),",
 						"          Observacion = toString(Observacion),",
 						"          actualvsfullyear = toDouble(ActualYTDApril)-toDouble(FullYearBudget),",
-						"          actualvsbudget = toDouble(ActualYTDApril)-toDouble(BudgetYTDApril)) ~> derivedColumn1",
+						"          actualvsbudget = toDouble(ActualYTDApril)-toDouble(BudgetYTDApril),",
+						"          area = 'oportunidades') ~> derivedColumn1",
 						"derivedColumn1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     format: 'parquet',",
@@ -1160,7 +1163,8 @@
 						"          Detalle = toString(Detalle),",
 						"          Observacion = toString(Observacion),",
 						"          actualvsfullyear = toDouble(ActualYTDApril)-toDouble(FullYearBudget),",
-						"          actualvsbudget = toDouble(ActualYTDApril)-toDouble(BudgetYTDApril)) ~> derivedColumn1",
+						"          actualvsbudget = toDouble(ActualYTDApril)-toDouble(BudgetYTDApril),",
+						"          area = 'planeamiento') ~> derivedColumn1",
 						"derivedColumn1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     format: 'parquet',",
@@ -1234,7 +1238,8 @@
 						"          Detalle = toString(Detalle),",
 						"          Observacion = toString(Observacion),",
 						"          actualvsfullyear = toDouble(ActualYTDApril)-toDouble(FullYearBudget),",
-						"          actualvsbudget = toDouble(ActualYTDApril)-toDouble(BudgetYTDApril)) ~> derivedColumn1",
+						"          actualvsbudget = toDouble(ActualYTDApril)-toDouble(BudgetYTDApril),",
+						"          area = 'retrasos') ~> derivedColumn1",
 						"derivedColumn1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     format: 'parquet',",
